@@ -41,16 +41,16 @@ process_frequency_map = {
 model_file = 'extra_trees_model.pkl'
 
 # Check if the model file exists
-if not os.path.isfile(file_path):
-    print(f"File not found: {file_path}")
+if not os.path.isfile(model_file):
+    st.error(f"Model file '{model_file}' not found. Please ensure the file is in the correct directory.")
 else:
     try:
-        with open(file_path, 'rb') as file:
+        with open(model_file, 'rb') as file:
             model = pickle.load(file)
-        print("Model loaded successfully.")
+        st.success("Model loaded successfully.")
     except Exception as e:
-        print(f"An error occurred: {e}")
-    
+        st.error(f"An error occurred while loading the model: {e}")
+
     # Streamlit app
     st.title('Risk Likelihood Prediction')
 
@@ -91,8 +91,9 @@ else:
 
     # Predict button
     if st.button('Predict Risk Likelihood'):
-        prediction = model.predict(features)
-        st.write('Predicted Risk Likelihood:', prediction[0])
-else:
-    st.error(f"Model dosyası '{model_file}' bulunamadı. Lütfen dosyanın doğru dizinde olduğundan emin olun.")
+        try:
+            prediction = model.predict(features)
+            st.write('Predicted Risk Likelihood:', prediction[0])
+        except Exception as e:
+            st.error(f"An error occurred during prediction: {e}")
 
