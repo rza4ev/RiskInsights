@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pickle
+import joblib
 import os
 
 # Encoding mappings
@@ -38,15 +38,15 @@ process_frequency_map = {
     'Daily': 0, 'Monthly': 1, 'Quarterly': 2, 'Weekly': 3, 'Yearly': 4
 }
 
-model_file = 'extra_trees_model.pkl'
+model_file = 'etc_model.joblib'
 
 # Check if the model file exists
 if not os.path.isfile(model_file):
     st.error(f"Model file '{model_file}' not found. Please ensure the file is in the correct directory.")
 else:
     try:
-        with open(model_file, 'rb') as file:
-            model = pickle.load(file)
+        # Load the model using joblib
+        model = joblib.load(model_file)
         st.success("Model loaded successfully.")
     except Exception as e:
         st.error(f"An error occurred while loading the model: {e}")
