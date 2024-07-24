@@ -41,10 +41,15 @@ process_frequency_map = {
 model_file = 'extra_trees_model.pkl'
 
 # Check if the model file exists
-if os.path.isfile(model_file):
-    # Load the model
-    with open(model_file, 'rb') as file:
-        model = pickle.load(file)
+if not os.path.isfile(file_path):
+    print(f"File not found: {file_path}")
+else:
+    try:
+        with open(file_path, 'rb') as file:
+            model = pickle.load(file)
+        print("Model loaded successfully.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
     
     # Streamlit app
     st.title('Risk Likelihood Prediction')
