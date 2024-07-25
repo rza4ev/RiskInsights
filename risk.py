@@ -38,7 +38,7 @@ process_frequency_map = {
     'Daily': 0, 'Monthly': 1, 'Quarterly': 2, 'Weekly': 3, 'Yearly': 4
 }
 
-model_file = 'C:/Users/MSI GF75/Desktop/Niyyat/IrshadEelec/linear.joblib'
+model_file = 'linear.joblib'
 
 # Check if the model file exists
 if os.path.isfile(model_file):
