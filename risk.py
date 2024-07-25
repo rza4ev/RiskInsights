@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
-import joblib
+import pickle
 import os
-
+import joblib
 # Encoding mappings
 process_name_map = {
     'Customer Support': 0, 'Data Management': 1, 'Financial Reporting': 2, 'IT Support': 3,
@@ -38,19 +38,14 @@ process_frequency_map = {
     'Daily': 0, 'Monthly': 1, 'Quarterly': 2, 'Weekly': 3, 'Yearly': 4
 }
 
-model_file = 'etc_model.joblib'
+model_file = 'C:/Users/MSI GF75/Desktop/Niyyat/IrshadEelec/linear.joblib'
 
 # Check if the model file exists
-if not os.path.isfile(model_file):
-    st.error(f"Model file '{model_file}' not found. Please ensure the file is in the correct directory.")
-else:
-    try:
-        # Load the model using joblib
-        model = joblib.load(model_file)
-        st.success("Model loaded successfully.")
-    except Exception as e:
-        st.error(f"An error occurred while loading the model: {e}")
-
+if os.path.isfile(model_file):
+    # Load the model
+    with open(model_file, 'rb') as file:
+        model = joblib.load(file)
+    
     # Streamlit app
     st.title('Risk Likelihood Prediction')
 
@@ -91,9 +86,9 @@ else:
 
     # Predict button
     if st.button('Predict Risk Likelihood'):
-        try:
-            prediction = model.predict(features)
-            st.write('Predicted Risk Likelihood:', prediction[0])
-        except Exception as e:
-            st.error(f"An error occurred during prediction: {e}")
+        prediction = model.predict(features)
+        st.write('Predicted Risk Likelihood:', prediction[0].round())
+else:
+    st.error(f"Model dosyası '{model_file}' bulunamadı. Lütfen dosyanın doğru dizinde olduğundan emin olun.")
+
 
