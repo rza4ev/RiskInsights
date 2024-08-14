@@ -1,10 +1,5 @@
 # RiskInsights
-ChatGPT
 
-You said:
-RiskInsights ML projects(Predict process risk) write github description
-ChatGPT said:
-ChatGPT
 Here’s a GitHub description for your "RiskInsights" ML project focused on predicting process risks:
 
 RiskInsights: Predicting Process Risk with Machine Learning
